@@ -42,9 +42,10 @@
         <input @keyup.enter="greet(greeting + '!!!!!')" v-model="greeting" />
         <hr />
 
-        <button @click.prevent.stop="toggleBox">Toggle Box</button>
+        <button @click="toggleBox">Toggle Box</button>
+        <test-box v-if="isVisible"></test-box>
 
-        <div v-if="isVisible" class="box"></div>
+        <!-- <div v-if="isVisible" class="box"></div> -->
 
 
 
@@ -71,7 +72,11 @@
                     console.log(greeting)
                 }
 
+            },
+            updated(){
+                console.log('updated')
             }
+
 
         })
 
@@ -122,7 +127,7 @@
                     <input :type="type" v-model ="inputValue"/>
                 </label>
             `,
-            props: ['label','type','modelValue'],
+            props: ['label', 'type', 'modelValue'],
             computed: {
                 inputValue: {
                     get() {
@@ -141,6 +146,23 @@
             //     }
             // }
         })
+
+        app.component('test-box', {
+            template: `
+                      <div class="box"/>  
+                `,
+                created(){
+                    console.log('created')
+                },
+                mounted(){
+                    console.log('mounted')
+                },
+                unmounted(){
+                    console.log('unmounted')
+                }
+        }
+
+        )
         app.mount('#app')
 
     </script>
